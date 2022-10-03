@@ -1,21 +1,20 @@
-// 1-я функция, источник https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  if (min <= max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+// 1-я функция
+function getRandomIntInclusive(from, to) {
+
+  if (from < 0 || to < 0) {
+    return NaN;
   }
-  return NaN;
+
+  const min = Math.min(from, to);
+  const max = Math.max(from, to);
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 getRandomIntInclusive();
 
 // 2-я функция
-function checkStringLength(string, maxLength) {
-  if (string <= maxLength) {
-    return true;
-  }
-  return false;
-}
+const checkStringLength = (string, maxLength) =>
+  string.length <= maxLength;
 
-checkStringLength();
+checkStringLength ();

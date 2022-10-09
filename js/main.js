@@ -21,24 +21,39 @@ checkStringLength();
 
 // ДЗ по 4му разделу
 
-const USER_ID = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-const PHOTO_URL = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
+const userId = [];
+const photoUrl = [];
+
+for (let i = 0; i < 26; i++) {
+  userId.push(i);
+  photoUrl.push(i);
+}
+
 const photoDescription = 'Какая-то фотография';
-const photoLikes = getRandomIntInclusive(15, 200);
-const photoComments = getRandomIntInclusive(0, 200);
+const photoLikes = [];
+const photoComments = [];
+
+for (let i = 0; i < 201; i++) {
+  photoLikes.push(i);
+  photoComments.push(i);
+}
+
 const CATALOG_DESCRIPTION_COUNT = 25;
 
-const getRandomArrayElement = (elements) => elements[getRandomIntInclusive(0, elements.length - 1)];
+const getRandomArrayElement = (elements) => elements[getRandomIntInclusive(1, elements.length - 1)];
+const getRandomLikesElement = (elements) => elements[getRandomIntInclusive(15, elements.length - 1)];
+const getRandomCommentsElement = (elements) => elements[getRandomIntInclusive(0, elements.length - 1)];
+
 
 const createDescription = () => ({
-  id: getRandomArrayElement(USER_ID),
-  url: `photos/${getRandomArrayElement(PHOTO_URL)}.jpg`,
+  id: getRandomArrayElement(userId),
+  url: `photos/${getRandomArrayElement(photoUrl)}.jpg`,
   description: photoDescription,
-  likes: getRandomIntInclusive(photoLikes, photoLikes),
-  comments: getRandomIntInclusive(photoComments, photoComments),
+  likes: getRandomLikesElement(photoLikes),
+  comments: getRandomCommentsElement(photoComments),
 });
 
 const catalogDescription = Array.from({
   length: CATALOG_DESCRIPTION_COUNT
 }, createDescription);
-
+console.log(catalogDescription);

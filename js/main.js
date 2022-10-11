@@ -21,39 +21,31 @@ checkStringLength();
 
 // ДЗ по 4му разделу
 
-const userId = [];
-const photoUrl = [];
-
-for (let i = 0; i < 26; i++) {
-  userId.push(i);
-  photoUrl.push(i);
-}
-
-const photoDescription = 'Какая-то фотография';
-const photoLikes = [];
-const photoComments = [];
-
-for (let i = 0; i < 201; i++) {
-  photoLikes.push(i);
-  photoComments.push(i);
-}
 
 const CATALOG_DESCRIPTION_COUNT = 25;
+const photoDescription = [
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  'Posuere ac ut consequat semper viverra. At volutpat diam ut venenatis tellus.',
+  'Feugiat scelerisque varius morbi enim nunc faucibus.',
+  'Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras.',
+  'Libero enim sed faucibus turpis in eu mi bibendum.',
+  'Nulla at volutpat diam ut venenatis tellus in.',
+  'Sed viverra tellus in hac habitasse platea dictumst vestibulum.',
+  'Sed adipiscing diam donec adipiscing tristique.',
+  'At auctor urna nunc id cursus metus aliquam eleifend mi.',
+  'Parturient montes nascetur ridiculus mus mauris vitae.'
+];
 
-const getRandomArrayElement = (elements) => elements[getRandomIntInclusive(1, elements.length - 1)];
-const getRandomLikesElement = (elements) => elements[getRandomIntInclusive(15, elements.length - 1)];
-const getRandomCommentsElement = (elements) => elements[getRandomIntInclusive(0, elements.length - 1)];
 
-
-const createDescription = () => ({
-  id: getRandomArrayElement(userId),
-  url: `photos/${getRandomArrayElement(photoUrl)}.jpg`,
-  description: photoDescription,
-  likes: getRandomLikesElement(photoLikes),
-  comments: getRandomCommentsElement(photoComments),
+const createDescription = (index) => ({
+  id: index,
+  url: `photos/${index}.jpg`,
+  description: photoDescription[getRandomIntInclusive(0, photoDescription.length - 1)],
+  likes: getRandomIntInclusive(15, 200),
+  comments: getRandomIntInclusive(0, 200),
 });
 
 const catalogDescription = Array.from({
   length: CATALOG_DESCRIPTION_COUNT
-}, createDescription);
+}, (_, index) => createDescription(index + 1));
 console.log(catalogDescription);

@@ -11,12 +11,10 @@ function getRandomIntInclusive(from, to) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-getRandomIntInclusive();
 
 // 2-я функция
 const checkStringLength = (string, maxLength) =>
   string.length <= maxLength;
 
-checkStringLength();
 
-export {getRandomIntInclusive};
+export {getRandomIntInclusive, checkStringLength};

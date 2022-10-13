@@ -1,3 +1,6 @@
-import './util.js';
+import {getRandomIntInclusive, checkStringLength} from './util.js';
 import {createDescriptions} from './data.js';
-createDescriptions();
+
+console.log(getRandomIntInclusive());
+console.log(checkStringLength());
+console.log(createDescriptions());

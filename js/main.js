@@ -1,7 +1,5 @@
 import {getRandomIntInclusive, checkStringLength} from './util.js';
 import {createDescriptions} from './data.js';
-import './gallery.js';
+import {renderUserPhotos} from './gallery.js';
 
-console.log(getRandomIntInclusive());
-console.log(checkStringLength());
-console.log(createDescriptions());
+renderUserPhotos();

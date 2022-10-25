@@ -21,13 +21,14 @@
       <section class="img-upload">
         <div class="img-upload__wrapper">
           <h2 class="img-upload__title  visually-hidden">Загрузка фотографии</h2>
-          <form class="img-upload__form" id="upload-select-image" action="https://27.javascript.pages.academy/kekstagram-simple" method="post" enctype="multipart/form-data"
+          <form class="img-upload__form" id="upload-select-image"
+            action="https://27.javascript.pages.academy/kekstagram-simple" method="post" enctype="multipart/form-data"
             autocomplete="off">
 
             <!-- Изначальное состояние поля для загрузки изображения -->
             <fieldset class="img-upload__start">
-              <input class="img-upload__input  visually-hidden" type="file" id="upload-file"  name="filename" required>
-              <label class="img-upload__label  img-upload__control" for="upload-file" >Загрузить</label>
+              <input class="img-upload__input  visually-hidden" type="file" id="upload-file" name="filename" required>
+              <label class="img-upload__label  img-upload__control" for="upload-file">Загрузить</label>
             </fieldset>
 
             <!-- Форма редактирования изображения -->
@@ -114,7 +115,13 @@
 
                 <!-- Добавление комментария к изображению -->
                 <fieldset class="img-upload__text text">
-                  <textarea class="text__description" name="description" placeholder="Ваш комментарий..." required></textarea>
+                  <label class="text__description-label">
+                    <textarea class="text__description" name="description" placeholder="Ваш комментарий..."
+                      minlength="20" maxlength="140" required
+                      data-pristine-required-message="Обязательное поле"
+                      data-pristine-minlength-message="Минимальная длина комментария 20 символов"
+                      data-pristine-maxlength-message="Максимальная длина комментария 140 символов"></textarea>
+                  </label>
                 </fieldset>
 
                 <!-- Кнопка для отправки данных на сервер -->
@@ -176,6 +183,7 @@
       </div>
     </section>
   </template>
+  <script src="/node_modules/pristinejs/dist/pristine.js"></script>
   <script src="/js/main.js" type="module"></script>
 </body>
 

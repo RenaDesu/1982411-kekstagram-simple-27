@@ -37,4 +37,19 @@ const uploadNewPhoto = () => {
   });
 };
 
-export {uploadNewPhoto};
+
+const validateUserComment = () => {
+  const pristine = new Pristine(uploadForm, {
+    classTo: 'text__description-label',
+    errorTextParent: 'text__description-label',
+    errorTextClass: 'text__error-text',
+  });
+
+  uploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+  });
+};
+
+export {uploadNewPhoto, validateUserComment};

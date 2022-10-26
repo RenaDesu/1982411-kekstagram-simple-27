@@ -65,4 +65,4 @@ const validateUserComment = () => {
 
 };
 
-export {uploadNewPhoto, validateUserComment};
+export {uploadNewPhoto, validateUserComment, uploadForm};

@@ -5,6 +5,8 @@ const uploadForm = document.querySelector('.img-upload__form');
 const uploadButton = uploadForm.querySelector('#upload-file');
 const editForm = uploadForm.querySelector('.img-upload__overlay');
 const editFormCancel = uploadForm.querySelector('#upload-cancel');
+const submitButton = uploadForm.querySelector('#upload-submit');
+const commentField = uploadForm.querySelector('.text__description');
 
 const uploadNewPhoto = () => {
   const onEditFormEscKeydown = (evt) => {
@@ -17,14 +19,14 @@ const uploadNewPhoto = () => {
   function openEditForm () {
     editForm.classList.remove('hidden');
     body.classList.add('modal-open');
-
     document.addEventListener('keydown', onEditFormEscKeydown);
   }
 
   function closeEditForm () {
     editForm.classList.add('hidden');
     body.classList.remove('modal-open');
-
+    uploadButton.value = '';
+    commentField.value = '';
     document.removeEventListener('keydown', onEditFormEscKeydown);
   }
 
@@ -45,11 +47,22 @@ const validateUserComment = () => {
     errorTextClass: 'text__error-text',
   });
 
-  uploadForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-
+  uploadForm.addEventListener('input', () => {
     const isValid = pristine.validate();
+    if (isValid) {
+      submitButton.removeAttribute('disabled');
+    } else {
+      submitButton.setAttribute('disabled', 'disabled');
+    }
   });
+
+  uploadForm.addEventListener('submit', (evt) => {
+    const isValid = pristine.validate();
+    if (!isValid) {
+      evt.preventDefault();
+    }
+  });
+
 };
 
 export {uploadNewPhoto, validateUserComment};

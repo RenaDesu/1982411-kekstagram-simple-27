@@ -1,9 +1,10 @@
-import {uploadForm} from './upload-form.js';
+import {
+  buttonSmaller,
+  buttonBigger,
+  scaleField,
+  imgPreview
+} from './dom-elements.js';
 
-const buttonSmaller = uploadForm.querySelector('.scale__control--smaller');
-const buttonBigger = uploadForm.querySelector('.scale__control--bigger');
-const scaleField = uploadForm.querySelector('.scale__control--value');
-const imgPreview = uploadForm.querySelector('.img-upload__preview');
 const MIN_SCALE_INDEX = 25;
 const MAX_SCALE_INDEX = 100;
 let scaleFieldValue = 100;

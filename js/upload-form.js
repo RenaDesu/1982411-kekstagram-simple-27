@@ -1,12 +1,13 @@
 import {isEscapeKey} from './util.js';
-
-const body = document.querySelector('body');
-const uploadForm = document.querySelector('.img-upload__form');
-const uploadButton = uploadForm.querySelector('#upload-file');
-const editForm = uploadForm.querySelector('.img-upload__overlay');
-const editFormCancel = uploadForm.querySelector('#upload-cancel');
-const submitButton = uploadForm.querySelector('#upload-submit');
-const commentField = uploadForm.querySelector('.text__description');
+import {
+  body,
+  uploadForm,
+  uploadButton,
+  editForm,
+  editFormCancel,
+  submitButton,
+  commentField
+} from './dom-elements.js';
 
 const uploadNewPhoto = () => {
   const onEditFormEscKeydown = (evt) => {
@@ -39,8 +40,7 @@ const uploadNewPhoto = () => {
   });
 };
 
-
-const validateUserComment = () => {
+const validateuploadForm = () => {
   const pristine = new Pristine(uploadForm, {
     classTo: 'text__description-label',
     errorTextParent: 'text__description-label',
@@ -65,4 +65,4 @@ const validateUserComment = () => {
 
 };
 
-export {uploadNewPhoto, validateUserComment, uploadForm};
+export {uploadNewPhoto, validateuploadForm};

@@ -49,10 +49,10 @@ const validateuploadForm = () => {
 
   uploadForm.addEventListener('input', () => {
     const isValid = pristine.validate();
-    if (isValid) {
-      submitButton.removeAttribute('disabled');
-    } else {
+    if (!isValid) {
       submitButton.setAttribute('disabled', 'disabled');
+    } else {
+      submitButton.removeAttribute('disabled');
     }
   });
 

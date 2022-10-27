@@ -5,30 +5,13 @@ import {
   effectLevelValue
 } from './dom-elements.js';
 
-const filterEffects = [{
-  effect: 'effects__preview--none',
-  id: 'effect-none'
-},
-{
-  effect: 'effects__preview--chrome',
-  id: 'effect-chrome'
-},
-{
-  effect: 'effects__preview--sepia',
-  id: 'effect-sepia'
-},
-{
-  effect: 'effects__preview--marvin',
-  id: 'effect-marvin'
-},
-{
-  effect: 'effects__preview--phobos',
-  id: 'effect-phobos'
-},
-{
-  effect: 'effects__preview--heat',
-  id: 'effect-heat'
-}
+const filterEffects = [
+  {effect: 'effects__preview--none', id: 'effect-none'},
+  {effect: 'effects__preview--chrome', id: 'effect-chrome'},
+  {effect: 'effects__preview--sepia', id: 'effect-sepia'},
+  {effect: 'effects__preview--marvin', id: 'effect-marvin'},
+  {effect: 'effects__preview--phobos', id: 'effect-phobos'},
+  {effect: 'effects__preview--heat', id: 'effect-heat'}
 ];
 
 // Наложение эффектов
@@ -45,8 +28,13 @@ const setPhotoFilters = () => {
   effectsList.addEventListener('change', onEffectChange);
 };
 
+const setDefaultEffect = () => {
+  const defaultEffect = filterEffects[0].effect;
+  imgPreview.className = defaultEffect;
+};
+
 // Слайдер интесивности эффектов, еще в работе
-const cnangeEffectIntensivity = () => {
+const changeEffectIntensity = () => {
   noUiSlider.create(effectLevelSlider, {
     range: {
       min: 0,
@@ -54,6 +42,14 @@ const cnangeEffectIntensivity = () => {
     },
     start: 100,
     connect: 'lower',
+    format: {
+      to: function (value) {
+        return value;
+      },
+      from: function (value) {
+        return parseFloat(value);
+      },
+    },
   });
 
   effectLevelSlider.noUiSlider.on('update', () => {
@@ -71,7 +67,8 @@ const cnangeEffectIntensivity = () => {
         start: 1,
         step: 0.1,
       });
+      imgPreview.style.filter = `grayscale(${effectLevelValue.value})`;
     }
   });
 };
-export {setPhotoFilters, cnangeEffectIntensivity};
+export {setPhotoFilters, setDefaultEffect, changeEffectIntensity};

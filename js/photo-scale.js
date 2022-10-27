@@ -35,4 +35,9 @@ const changeScale = () => {
   });
 };
 
-export {changeScale};
+const setDefaultScale = () => {
+  scaleFieldValue = MAX_SCALE_INDEX;
+  imgPreview.style.transform = `scale(${scaleFieldValue / 100})`;
+};
+
+export {changeScale, setDefaultScale};

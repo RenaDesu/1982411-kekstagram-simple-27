@@ -1,4 +1,6 @@
 import {isEscapeKey} from './util.js';
+import {setDefaultScale} from './photo-scale.js';
+import {setDefaultEffect} from './photo-filters.js';
 import {
   body,
   uploadForm,
@@ -28,6 +30,8 @@ const uploadNewPhoto = () => {
     body.classList.remove('modal-open');
     uploadButton.value = '';
     commentField.value = '';
+    setDefaultScale();
+    setDefaultEffect();
     document.removeEventListener('keydown', onEditFormEscKeydown);
   }
 

@@ -2,7 +2,7 @@ import {
   imgPreview,
   effectsList,
   effectLevelSlider,
-  effectLevelValue
+  effectLevelValue,
 } from './dom-elements.js';
 
 const filterEffects = [
@@ -57,7 +57,7 @@ const changeEffectIntensity = () => {
   });
 
   effectsList.addEventListener('change', (evt) => {
-  // кажется, что условие не срабатывает
+    // Условие работает пока только для эффекта хром (и пока без изменения стилей)
     if (evt.target.checked && evt.target.id === filterEffects[1].id) {
       effectLevelSlider.noUiSlider.updateOptions({
         range: {
@@ -67,7 +67,15 @@ const changeEffectIntensity = () => {
         start: 1,
         step: 0.1,
       });
-      imgPreview.style.filter = `grayscale(${effectLevelValue.value})`;
+    } else {
+      effectLevelSlider.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 100,
+        },
+        step: 1
+      });
+      effectLevelSlider.noUiSlider.set(100);
     }
   });
 };

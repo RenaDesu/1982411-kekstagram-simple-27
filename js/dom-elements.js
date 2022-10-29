@@ -12,6 +12,7 @@ const imgPreview = uploadForm.querySelector('.img-upload__preview');
 const effectsList = uploadForm.querySelector('.effects__list');
 const effectLevelSlider = uploadForm.querySelector('.effect-level__slider');
 const effectLevelValue = uploadForm.querySelector('.effect-level__value');
+// const effectsButtons = uploadForm.querySelectorAll('.effects__radio');
 
 export {
   body,

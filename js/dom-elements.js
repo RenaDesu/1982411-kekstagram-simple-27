@@ -28,5 +28,5 @@ export {
   imgPreview,
   effectsList,
   effectLevelSlider,
-  effectLevelValue
+  effectLevelValue,
 };

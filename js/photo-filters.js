@@ -38,9 +38,10 @@ const changeEffectIntensity = () => {
   noUiSlider.create(effectLevelSlider, {
     range: {
       min: 0,
-      max: 100,
+      max: 1,
     },
-    start: 100,
+    start: 1,
+    step: 0.1,
     connect: 'lower',
     format: {
       to: function (value) {
@@ -57,25 +58,49 @@ const changeEffectIntensity = () => {
   });
 
   effectsList.addEventListener('change', (evt) => {
-    // Условие работает пока только для эффекта хром (и пока без изменения стилей)
-    if (evt.target.checked && evt.target.id === filterEffects[1].id) {
+    // Все условия работают, но когда выбирается оригинал, то слайдет удаляется, но не возвращяется, когда выбирается другой эффект.
+    if (evt.target.checked && evt.target.id === filterEffects[0].id) {
+      return effectLevelSlider.noUiSlider.destroy();
+    }
+    else if (evt.target.checked && evt.target.id === filterEffects[3].id) {
+      return effectLevelSlider.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 100,
+        },
+        start: 100,
+        step: 1,
+      });
+    }
+    else if (evt.target.checked && evt.target.id === filterEffects[4].id) {
+      return effectLevelSlider.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 3,
+        },
+        start: 3,
+        step: 0.1,
+      });
+    }
+    else if (evt.target.checked && evt.target.id === filterEffects[5].id) {
+      return effectLevelSlider.noUiSlider.updateOptions({
+        range: {
+          min: 1,
+          max: 3,
+        },
+        start: 3,
+        step: 0.1,
+      });
+    }
+    else {
       effectLevelSlider.noUiSlider.updateOptions({
         range: {
           min: 0,
           max: 1,
         },
-        start: 1,
-        step: 0.1,
+        step: 0.1
       });
-    } else {
-      effectLevelSlider.noUiSlider.updateOptions({
-        range: {
-          min: 0,
-          max: 100,
-        },
-        step: 1
-      });
-      effectLevelSlider.noUiSlider.set(100);
+      effectLevelSlider.noUiSlider.set(1);
     }
   });
 };

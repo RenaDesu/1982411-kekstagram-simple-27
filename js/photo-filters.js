@@ -3,15 +3,16 @@ import {
   effectsList,
   effectLevelSlider,
   effectLevelValue,
+  effectsButton
 } from './dom-elements.js';
 
 const filterEffects = [
-  {effect: 'effects__preview--none', id: 'effect-none'},
-  {effect: 'effects__preview--chrome', id: 'effect-chrome'},
-  {effect: 'effects__preview--sepia', id: 'effect-sepia'},
-  {effect: 'effects__preview--marvin', id: 'effect-marvin'},
-  {effect: 'effects__preview--phobos', id: 'effect-phobos'},
-  {effect: 'effects__preview--heat', id: 'effect-heat'}
+  {effect: 'effects__preview--none', id: 'effect-none', style: 'none'},
+  {effect: 'effects__preview--chrome', id: 'effect-chrome', style: 'grayscale', units: ''},
+  {effect: 'effects__preview--sepia', id: 'effect-sepia', style: 'sepia', units: ''},
+  {effect: 'effects__preview--marvin', id: 'effect-marvin', style: 'invert', units: '%', min: 0, max: 100, start: 100, step: 1},
+  {effect: 'effects__preview--phobos', id: 'effect-phobos', style: 'blur', units: 'px', min: 0, max: 3, start: 3, step: 0.1},
+  {effect: 'effects__preview--heat', id: 'effect-heat', style: 'brightness', units: '', min: 1, max: 3, start: 3, step: 0.1,}
 ];
 
 // Наложение эффектов
@@ -58,50 +59,27 @@ const changeEffectIntensity = () => {
   });
 
   effectsList.addEventListener('change', (evt) => {
-    // Все условия работают, но когда выбирается оригинал, то слайдет удаляется, но не возвращяется, когда выбирается другой эффект.
-    if (evt.target.checked && evt.target.id === filterEffects[0].id) {
-      return effectLevelSlider.noUiSlider.destroy();
-    }
-    else if (evt.target.checked && evt.target.id === filterEffects[3].id) {
-      return effectLevelSlider.noUiSlider.updateOptions({
-        range: {
-          min: 0,
-          max: 100,
-        },
-        start: 100,
-        step: 1,
-      });
-    }
-    else if (evt.target.checked && evt.target.id === filterEffects[4].id) {
-      return effectLevelSlider.noUiSlider.updateOptions({
-        range: {
-          min: 0,
-          max: 3,
-        },
-        start: 3,
-        step: 0.1,
-      });
-    }
-    else if (evt.target.checked && evt.target.id === filterEffects[5].id) {
-      return effectLevelSlider.noUiSlider.updateOptions({
-        range: {
-          min: 1,
-          max: 3,
-        },
-        start: 3,
-        step: 0.1,
-      });
-    }
-    else {
-      effectLevelSlider.noUiSlider.updateOptions({
-        range: {
-          min: 0,
-          max: 1,
-        },
-        step: 0.1
-      });
-      effectLevelSlider.noUiSlider.set(1);
-    }
+    filterEffects.forEach((filterEffect) => {
+      if (evt.target.checked && evt.target.id === filterEffect.id) {
+        effectLevelSlider.noUiSlider.updateOptions({
+          range: {
+            min: filterEffect.min,
+            max: filterEffect.max,
+          },
+          start:  filterEffect.start,
+          step:  filterEffect.step,
+        });
+      }
+    });
   });
 };
-export {setPhotoFilters, setDefaultEffect, changeEffectIntensity};
+
+//почему не работает? проверить
+const removeSlider = () => {
+  if (effectsButton.checked) {
+    effectLevelSlider.classList.add('visually-hidden');
+    imgPreview.style.filter = 'none';
+  }
+};
+
+export {setPhotoFilters, setDefaultEffect, changeEffectIntensity, removeSlider};

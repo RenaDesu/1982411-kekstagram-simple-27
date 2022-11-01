@@ -1,6 +1,6 @@
 import {isEscapeKey} from './util.js';
 import {setDefaultScale} from './photo-scale.js';
-import {setDefaultEffect} from './photo-filters.js';
+import {setDefaultEffect, removeSlider} from './photo-filters.js';
 import {
   body,
   uploadForm,
@@ -22,6 +22,7 @@ const uploadNewPhoto = () => {
   function openEditForm () {
     editForm.classList.remove('hidden');
     body.classList.add('modal-open');
+    removeSlider();
     document.addEventListener('keydown', onEditFormEscKeydown);
   }
 

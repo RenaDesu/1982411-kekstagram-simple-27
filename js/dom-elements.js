@@ -8,11 +8,10 @@ const commentField = uploadForm.querySelector('.text__description');
 const buttonSmaller = uploadForm.querySelector('.scale__control--smaller');
 const buttonBigger = uploadForm.querySelector('.scale__control--bigger');
 const scaleField = uploadForm.querySelector('.scale__control--value');
-const imgPreview = uploadForm.querySelector('.img-upload__preview');
+const imgPreview = uploadForm.querySelector('.img-upload__preview img');
 const effectsList = uploadForm.querySelector('.effects__list');
 const effectLevelSlider = uploadForm.querySelector('.effect-level__slider');
 const effectLevelValue = uploadForm.querySelector('.effect-level__value');
-const effectsButton = uploadForm.querySelector('.effects__radio');
 
 export {
   body,
@@ -29,5 +28,4 @@ export {
   effectsList,
   effectLevelSlider,
   effectLevelValue,
-  effectsButton
 };

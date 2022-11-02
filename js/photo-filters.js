@@ -1,85 +1,86 @@
 import {
   imgPreview,
-  effectsList,
+  uploadForm,
   effectLevelSlider,
-  effectLevelValue,
-  effectsButton
+  effectLevelValue
 } from './dom-elements.js';
 
-const filterEffects = [
-  {effect: 'effects__preview--none', id: 'effect-none', style: 'none'},
-  {effect: 'effects__preview--chrome', id: 'effect-chrome', style: 'grayscale', units: ''},
-  {effect: 'effects__preview--sepia', id: 'effect-sepia', style: 'sepia', units: ''},
-  {effect: 'effects__preview--marvin', id: 'effect-marvin', style: 'invert', units: '%', min: 0, max: 100, start: 100, step: 1},
-  {effect: 'effects__preview--phobos', id: 'effect-phobos', style: 'blur', units: 'px', min: 0, max: 3, start: 3, step: 0.1},
-  {effect: 'effects__preview--heat', id: 'effect-heat', style: 'brightness', units: '', min: 1, max: 3, start: 3, step: 0.1,}
+const FILTER_EFFECTS = [
+  {name: 'none', min: 0, max: 100, step: 1},
+  {name: 'chrome', style: 'grayscale', min: 0, max: 1, step: 0.1, units: ''},
+  {name: 'sepia', style: 'sepia', min: 0, max: 1, step: 0.1, units: ''},
+  {name: 'marvin', style: 'invert', min: 0, max: 100, step: 1, units: '%'},
+  {name: 'phobos', style: 'blur', min: 0, max: 3, step: 0.1, units: 'px'},
+  {name: 'heat', style: 'brightness', min: 1, max: 3, step: 0.1, units: ''}
 ];
 
-// Наложение эффектов
-const setPhotoFilters = () => {
-  const onEffectChange = (evt) => {
-    filterEffects.forEach((filterEffect) => {
-      const currentEffect = filterEffect.effect;
-      if (evt.target.checked && evt.target.id === filterEffect.id) {
-        imgPreview.className = currentEffect;
-      }
-    });
-  };
+const DEFAULT_EFFECT = FILTER_EFFECTS[0];
+let currentEffect = DEFAULT_EFFECT;
 
-  effectsList.addEventListener('change', onEffectChange);
-};
+const isDefaultEffect = () => currentEffect === DEFAULT_EFFECT;
 
-const setDefaultEffect = () => {
-  const defaultEffect = filterEffects[0].effect;
-  imgPreview.className = defaultEffect;
-};
-
-// Слайдер интесивности эффектов, еще в работе
-const changeEffectIntensity = () => {
-  noUiSlider.create(effectLevelSlider, {
+const updateEffect = () => {
+  effectLevelSlider.classList.remove('hidden');
+  effectLevelSlider.noUiSlider.updateOptions({
     range: {
-      min: 0,
-      max: 1,
+      min: currentEffect.min,
+      max: currentEffect.max,
     },
-    start: 1,
-    step: 0.1,
-    connect: 'lower',
-    format: {
-      to: function (value) {
-        return value;
-      },
-      from: function (value) {
-        return parseFloat(value);
-      },
-    },
+    start:  currentEffect.max,
+    step:  currentEffect.step,
   });
 
-  effectLevelSlider.noUiSlider.on('update', () => {
-    effectLevelValue.value = effectLevelSlider.noUiSlider.get();
-  });
-
-  effectsList.addEventListener('change', (evt) => {
-    filterEffects.forEach((filterEffect) => {
-      if (evt.target.checked && evt.target.id === filterEffect.id) {
-        effectLevelSlider.noUiSlider.updateOptions({
-          range: {
-            min: filterEffect.min,
-            max: filterEffect.max,
-          },
-          start:  filterEffect.start,
-          step:  filterEffect.step,
-        });
-      }
-    });
-  });
-};
-
-//почему не работает? проверить
-const removeSlider = () => {
-  if (effectsButton.checked) {
-    effectLevelSlider.classList.add('visually-hidden');
-    imgPreview.style.filter = 'none';
+  if (isDefaultEffect()) {
+    effectLevelSlider.classList.add('hidden');
   }
 };
 
-export {setPhotoFilters, setDefaultEffect, changeEffectIntensity, removeSlider};
+const onUploadFormChange = (evt) => {
+  if (!evt.target.classList.contains('effects__radio')) {
+    return;
+  }
+  currentEffect = FILTER_EFFECTS.find((effect) => effect.name === evt.target.value);
+  updateEffect();
+};
+
+const onEffectUpdate = () => {
+  imgPreview.style.filter = 'none';
+  imgPreview.className = '';
+  effectLevelValue.value = '';
+  if (isDefaultEffect()) {
+    return;
+  }
+  const effectValue = effectLevelSlider.noUiSlider.get();
+  imgPreview.style.filter = `${currentEffect.style}(${effectValue}${currentEffect.units})`;
+  imgPreview.classList.add(`effects__preview--${currentEffect.name}`);
+  effectLevelValue.value = effectValue;
+};
+
+const setDefaultEffect = () => {
+  currentEffect = DEFAULT_EFFECT;
+  updateEffect();
+};
+
+noUiSlider.create(effectLevelSlider, {
+  range: {
+    min: DEFAULT_EFFECT.min,
+    max: DEFAULT_EFFECT.max,
+  },
+  start: DEFAULT_EFFECT.max,
+  step: DEFAULT_EFFECT.step,
+  connect: 'lower',
+  format: {
+    to: function (value) {
+      return value;
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
+});
+updateEffect();
+
+uploadForm.addEventListener('change', onUploadFormChange);
+effectLevelSlider.noUiSlider.on('update', onEffectUpdate);
+
+export {setDefaultEffect};

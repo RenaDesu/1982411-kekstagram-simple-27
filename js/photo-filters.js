@@ -81,6 +81,7 @@ noUiSlider.create(effectLevelSlider, {
 updateEffect();
 
 uploadForm.addEventListener('change', onUploadFormChange);
+
 effectLevelSlider.noUiSlider.on('update', onEffectUpdate);
 
 export {setDefaultEffect};

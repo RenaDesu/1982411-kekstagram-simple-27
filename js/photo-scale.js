@@ -34,6 +34,7 @@ const onButtonBiggerClick = () => {
 };
 
 buttonSmaller.addEventListener('click', onButtonSmallerClick);
+
 buttonBigger.addEventListener('click', onButtonBiggerClick);
 
 const setDefaultScale = () => {

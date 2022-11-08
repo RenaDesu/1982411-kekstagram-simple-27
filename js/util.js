@@ -1,4 +1,5 @@
 import {body, editForm} from './dom-elements.js';
+
 // 1-я вспомогательная функция
 function getRandomIntInclusive(from, to) {
 
@@ -28,18 +29,10 @@ const showSuccessPopUp = () => {
   successPopUpFragment.appendChild(successPopUp);
   body.appendChild(successPopUpFragment);
   //Закрытие сообщения об успешной загрузке
-  const onEditFormEscKeydown = (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      closeSuccessPopUp();
-    }
-  };
-  document.addEventListener('keydown', onEditFormEscKeydown);
   const successButton = document.querySelector('.success__button');
-  const popUp = document.querySelector('.success');
+  const successMessage = document.querySelector('.success');
   function closeSuccessPopUp () {
-    popUp.classList.add('hidden');
-    document.removeEventListener('keydown', onEditFormEscKeydown);
+    successMessage.classList.add('hidden');
   }
   successButton.addEventListener('click', closeSuccessPopUp);
 };
@@ -53,6 +46,38 @@ const showErrorPopUp = () => {
   errorPopUpFragment.appendChild(errorPopUp);
   body.appendChild(errorPopUpFragment);
   editForm.classList.add('hidden');
+  //Закрытие сообщения об ошибке
+  const errorButton = document.querySelector('.error__button');
+  const errorMessage = document.querySelector('.error');
+  function closeErrorPopUp () {
+    errorMessage.classList.add('hidden');
+    editForm.classList.remove('hidden');
+    body.classList.add('modal-open');
+  }
+  errorButton.addEventListener('click', closeErrorPopUp);
+};
+
+//Ошибка загрузки фотографий с сервера
+const ALERT_SHOW_TIME = 10000;
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
 };
 
 export {
@@ -60,5 +85,6 @@ export {
   checkStringLength,
   isEscapeKey,
   showSuccessPopUp,
-  showErrorPopUp
+  showErrorPopUp,
+  showAlert
 };

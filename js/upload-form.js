@@ -43,4 +43,4 @@ const uploadNewPhoto = () => {
   });
 };
 
-export {uploadNewPhoto, closeEditForm};
+export {uploadNewPhoto, openEditForm, closeEditForm};

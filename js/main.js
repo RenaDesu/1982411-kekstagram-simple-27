@@ -1,4 +1,4 @@
-import './util.js';
+import {showAlert} from './util.js';
 import './data.js';
 import {renderUserPhotos} from './gallery.js';
 import {uploadNewPhoto, closeEditForm} from './upload-form.js';
@@ -12,6 +12,8 @@ uploadNewPhoto();
 
 getData((userPhotos) => {
   renderUserPhotos(userPhotos);
-});
+},
+() => showAlert('Ошибка загрузки')
+);
 
 validateUploadForm(closeEditForm);

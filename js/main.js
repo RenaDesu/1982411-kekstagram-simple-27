@@ -1,12 +1,17 @@
 import './util.js';
 import './data.js';
 import {renderUserPhotos} from './gallery.js';
-import {uploadNewPhoto, validateuploadForm} from './upload-form.js';
+import {uploadNewPhoto, closeEditForm} from './upload-form.js';
+import {validateUploadForm} from './form-validation.js';
 import './photo-scale.js';
 import './photo-filters.js';
 import './dom-elements.js';
+import {getData} from './api.js';
 
-renderUserPhotos();
 uploadNewPhoto();
-validateuploadForm();
 
+getData((userPhotos) => {
+  renderUserPhotos(userPhotos);
+});
+
+validateUploadForm(closeEditForm);

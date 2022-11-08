@@ -1,10 +1,7 @@
-import {createDescriptions} from './data.js';
-
 const picturesContainer = document.querySelector('.pictures');
 const userPhotoTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const userPhotos = createDescriptions();
 
-const renderUserPhotos = () => {
+const renderUserPhotos = (userPhotos) => {
   const userPhotosFragment = document.createDocumentFragment();
 
   userPhotos.forEach(({url, likes, comments}) => {

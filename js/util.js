@@ -1,6 +1,8 @@
 import {body, editForm} from './dom-elements.js';
 import {onEditFormEscKeydown} from './upload-form.js';
 
+const ALERT_SHOW_TIME = 10000;
+
 // 1-я вспомогательная функция
 function getRandomIntInclusive(from, to) {
 
@@ -87,7 +89,6 @@ const showErrorPopUp = () => {
 };
 
 //Ошибка загрузки фотографий с сервера
-const ALERT_SHOW_TIME = 10000;
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';

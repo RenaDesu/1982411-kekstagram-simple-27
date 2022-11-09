@@ -1,4 +1,5 @@
 import {body, editForm} from './dom-elements.js';
+import {onEditFormEscKeydown} from './upload-form.js';
 
 // 1-я вспомогательная функция
 function getRandomIntInclusive(from, to) {
@@ -20,41 +21,69 @@ const checkStringLength = (string, maxLength) =>
 // isEscapeKey
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-//Сообщение об успешной загрузке
-const successPopUpTemplate = document.querySelector('#success').content.querySelector('.success');
-
-const showSuccessPopUp = () => {
-  const successPopUpFragment = document.createDocumentFragment();
-  const successPopUp = successPopUpTemplate.cloneNode(true);
-  successPopUpFragment.appendChild(successPopUp);
-  body.appendChild(successPopUpFragment);
-  //Закрытие сообщения об успешной загрузке
-  const successButton = document.querySelector('.success__button');
-  const successMessage = document.querySelector('.success');
-  function closeSuccessPopUp () {
-    successMessage.classList.add('hidden');
+//Закрытие сообщений нажатием ESC
+const onSuccessPopUpEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeSuccessPopUp();
   }
-  successButton.addEventListener('click', closeSuccessPopUp);
 };
 
-//Сообщение об ошибке
-const errorPopUpTemplate = document.querySelector('#error').content.querySelector('.error');
-
-const showErrorPopUp = () => {
-  const errorPopUpFragment = document.createDocumentFragment();
-  const errorPopUp = errorPopUpTemplate.cloneNode(true);
-  errorPopUpFragment.appendChild(errorPopUp);
-  body.appendChild(errorPopUpFragment);
-  editForm.classList.add('hidden');
-  //Закрытие сообщения об ошибке
-  const errorButton = document.querySelector('.error__button');
-  const errorMessage = document.querySelector('.error');
-  function closeErrorPopUp () {
-    errorMessage.classList.add('hidden');
-    editForm.classList.remove('hidden');
-    body.classList.add('modal-open');
+const onErrorPopUpEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeErrorPopUp();
+    document.addEventListener('keydown', onEditFormEscKeydown);
   }
-  errorButton.addEventListener('click', closeErrorPopUp);
+};
+
+//Закрытие сообщений по клику на пустую область
+function onClick(evt) {
+  if (!evt.target.matches('.success__inner') && !evt.target.matches('.error__inner')) {
+    evt.target.remove();
+    evt.target.removeEventListener('click', onClick);
+    document.removeEventListener('keydown', onSuccessPopUpEscKeydown);
+    document.removeEventListener('keydown', onErrorPopUpEscKeydown);
+    if (!(evt.target.matches('.success__button') || evt.target.matches('.success'))) {
+      document.addEventListener('keydown', onEditFormEscKeydown);
+      editForm.classList.remove('hidden');
+    }
+  }
+}
+
+//Закрытие сообщения об успешной загрузке
+function closeSuccessPopUp () {
+  document.querySelector('.success').remove();
+  document.removeEventListener('keydown', onSuccessPopUpEscKeydown);
+}
+
+//Сообщение об успешной загрузке
+const showSuccessPopUp = () => {
+  const successPopUpTemplate = document.querySelector('#success').content.querySelector('.success');
+  const successPopUp = successPopUpTemplate.cloneNode(true);
+  body.appendChild(successPopUp);
+  document.addEventListener('keydown', onSuccessPopUpEscKeydown);
+  successPopUp.querySelector('.success__button').addEventListener('click', closeSuccessPopUp);
+  successPopUp.addEventListener('click', onClick);
+};
+
+//Закрытие сообщения об ошибке
+function closeErrorPopUp () {
+  editForm.classList.remove('hidden');
+  document.querySelector('.error').remove();
+  document.removeEventListener('keydown', onErrorPopUpEscKeydown);
+}
+
+//Сообщение об ошибке
+const showErrorPopUp = () => {
+  editForm.classList.add('hidden');
+  const errorPopUpTemplate = document.querySelector('#error').content.querySelector('.error');
+  const errorPopUp = errorPopUpTemplate.cloneNode(true);
+  body.appendChild(errorPopUp);
+  document.removeEventListener('keydown', onEditFormEscKeydown);
+  document.addEventListener('keydown', onErrorPopUpEscKeydown);
+  errorPopUp.querySelector('.error__button').addEventListener('click', closeErrorPopUp);
+  errorPopUp.addEventListener('click', onClick);
 };
 
 //Ошибка загрузки фотографий с сервера

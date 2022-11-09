@@ -1,4 +1,4 @@
-import {showErrorPopUp, showSuccessPopUp, showAlert} from './util.js';
+import {showSuccessPopUp, showAlert} from './util.js';
 
 const getData = (onSuccess, onError) => {
   fetch('https://27.javascript.pages.academy/kekstagram-simple/data')
@@ -27,11 +27,11 @@ const sendData = (onSuccess, onFail, body) => {
       if (response.ok) {
         onSuccess(showSuccessPopUp());
       } else {
-        onFail(showErrorPopUp());
+        onFail('Не удалось отправить форму. Попробуйте ещё раз');
       }
     })
     .catch(() => {
-      onFail(showErrorPopUp());
+      onFail('Не удалось отправить форму. Попробуйте ещё раз');
     });
 };
 

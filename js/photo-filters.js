@@ -2,7 +2,8 @@ import {
   imgPreview,
   uploadForm,
   effectLevelSlider,
-  effectLevelValue
+  effectLevelValue,
+  effectLevelFieldset
 } from './dom-elements.js';
 
 const FILTER_EFFECTS = [
@@ -20,7 +21,7 @@ let currentEffect = DEFAULT_EFFECT;
 const isDefaultEffect = () => currentEffect === DEFAULT_EFFECT;
 
 const updateEffect = () => {
-  effectLevelSlider.classList.remove('hidden');
+  effectLevelFieldset.classList.remove('hidden');
   effectLevelSlider.noUiSlider.updateOptions({
     range: {
       min: currentEffect.min,
@@ -31,7 +32,7 @@ const updateEffect = () => {
   });
 
   if (isDefaultEffect()) {
-    effectLevelSlider.classList.add('hidden');
+    effectLevelFieldset.classList.add('hidden');
   }
 };
 

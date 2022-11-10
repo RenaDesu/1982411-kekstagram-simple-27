@@ -12,6 +12,7 @@ const imgPreview = uploadForm.querySelector('.img-upload__preview img');
 const effectsList = uploadForm.querySelector('.effects__list');
 const effectLevelSlider = uploadForm.querySelector('.effect-level__slider');
 const effectLevelValue = uploadForm.querySelector('.effect-level__value');
+const effectLevelFieldset = uploadForm.querySelector('.img-upload__effect-level');
 
 export {
   body,
@@ -28,4 +29,5 @@ export {
   effectsList,
   effectLevelSlider,
   effectLevelValue,
+  effectLevelFieldset
 };

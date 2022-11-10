@@ -2,7 +2,7 @@ import {
   uploadForm,
   submitButton,
 } from './dom-elements.js';
-import {showErrorPopUp} from './util.js';
+import {showErrorPopUp, showSuccessPopUp} from './util.js';
 import {sendData} from './api.js';
 
 const pristine = new Pristine(uploadForm, {
@@ -40,6 +40,7 @@ const validateUploadForm = (onSuccess) => {
         () => {
           onSuccess();
           unblockSubmitButton();
+          showSuccessPopUp();
         },
         () => {
           showErrorPopUp();

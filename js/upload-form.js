@@ -4,6 +4,7 @@ import {setDefaultEffect} from './photo-filters.js';
 import {
   body,
   uploadButton,
+  uploadForm,
   editForm,
   editFormCancel,
   commentField
@@ -24,6 +25,7 @@ function openEditForm () {
 }
 
 function closeEditForm () {
+  uploadForm.reset();
   editForm.classList.add('hidden');
   body.classList.remove('modal-open');
   uploadButton.value = '';

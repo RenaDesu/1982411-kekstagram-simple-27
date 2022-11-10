@@ -10,10 +10,6 @@ import {getData} from './api.js';
 
 uploadNewPhoto();
 
-getData((userPhotos) => {
-  renderUserPhotos(userPhotos);
-},
-() => showAlert('Ошибка загрузки')
-);
+getData(renderUserPhotos, () => showAlert('Ошибка загрузки'));
 
 validateUploadForm(closeEditForm);

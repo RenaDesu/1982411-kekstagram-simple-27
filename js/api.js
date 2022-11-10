@@ -1,5 +1,3 @@
-import {showSuccessPopUp, showAlert} from './util.js';
-
 const getData = (onSuccess, onError) => {
   fetch('https://27.javascript.pages.academy/kekstagram-simple/data')
     .then((response) => {
@@ -7,12 +5,8 @@ const getData = (onSuccess, onError) => {
         return response.json();
       }
     })
-    .then((userPhotos) => {
-      onSuccess(userPhotos);
-    })
-    .catch(() => {
-      onError(showAlert());
-    });
+    .then((userPhotos) => onSuccess(userPhotos))
+    .catch(() => onError());
 };
 
 const sendData = (onSuccess, onFail, body) => {
@@ -25,14 +19,12 @@ const sendData = (onSuccess, onFail, body) => {
   )
     .then((response) => {
       if (response.ok) {
-        onSuccess(showSuccessPopUp());
+        onSuccess();
       } else {
         onFail('Не удалось отправить форму. Попробуйте ещё раз');
       }
     })
-    .catch(() => {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз');
-    });
+    .catch(() => onFail('Не удалось отправить форму. Попробуйте ещё раз'));
 };
 
 export {getData, sendData};

@@ -1,5 +1,4 @@
 import {showAlert} from './util.js';
-import './data.js';
 import {renderUserPhotos} from './gallery.js';
 import {uploadNewPhoto, closeEditForm} from './upload-form.js';
 import {validateUploadForm} from './form-validation.js';

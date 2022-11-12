@@ -3,23 +3,6 @@ import {onEditFormEscKeydown} from './upload-form.js';
 
 const ALERT_SHOW_TIME = 10000;
 
-// 1-я вспомогательная функция
-function getRandomIntInclusive(from, to) {
-
-  if (from < 0 || to < 0) {
-    return NaN;
-  }
-
-  const min = Math.ceil(Math.min(from, to));
-  const max = Math.floor(Math.max(from, to));
-
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// 2-я вспомогательная функция
-const checkStringLength = (string, maxLength) =>
-  string.length <= maxLength;
-
 // isEscapeKey
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
@@ -111,8 +94,6 @@ const showAlert = (message) => {
 };
 
 export {
-  getRandomIntInclusive,
-  checkStringLength,
   isEscapeKey,
   showSuccessPopUp,
   showErrorPopUp,

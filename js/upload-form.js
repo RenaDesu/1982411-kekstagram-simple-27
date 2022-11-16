@@ -7,7 +7,8 @@ import {
   uploadForm,
   editForm,
   editFormCancel,
-  commentField
+  commentField,
+  imgPreview
 } from './dom-elements.js';
 
 
@@ -22,6 +23,8 @@ function openEditForm () {
   editForm.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEditFormEscKeydown);
+  const file = uploadButton.files[0];
+  imgPreview.src = URL.createObjectURL(file);
 }
 
 function closeEditForm () {
